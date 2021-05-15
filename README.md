@@ -7,8 +7,11 @@ Program for anagram?
 function anagrams(stringA, stringB) {
         /*First, we remove any non-alphabet character using regex and convert
         convert the strings to lowercase. */
+        
         stringA = stringA.replace(/[^\w]/g, "").toLowerCase()
+        
         stringB = stringB.replace(/[^\w]/g, "").toLowerCase()
+        
 
         //Get the character map of both strings
         const charMapA = getCharMap(stringA)
@@ -58,7 +61,8 @@ method to sort it and convert it back to a string. Then we compare both strings 
         return string.split('').sort().join('');
     }
 Array.sort uses merge sort so its time complexity is O(nlogn).
-[11/03, 11:43] Gautam: Program for decimal to binary?
+
+Program for decimal to binary?
 function convertToBinary(x) {
     let bin = 0;
     let rem, i = 1, step = 1;
