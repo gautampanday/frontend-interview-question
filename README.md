@@ -98,6 +98,7 @@ The binary value is calculated by:
 
 bin = bin + rem * i;
 Here, rem is the modulus % value of the number when divided by 2 and i gives the place value of the binary number.
+
 [11/03, 11:49] Gautam: Program for summation of diagonal elements
 function diagonalSums(matrix) {
  
@@ -110,7 +111,9 @@ function diagonalSums(matrix) {
 }
  
 diagonalSums([[20, 40], [10, 60]]);
-[11/03, 11:51] Gautam: How do you improve the performance of your web application?
+
+[11/03, 11:51] 
+How do you improve the performance of your web application?
 1. Cache in the browser
 There are two options for doing this. The first is to use the JavaScript Cache API, which we can use by installing a service worker. The second is to use the HTTP protocol cache.
 
@@ -162,11 +165,13 @@ Factor and simplify mathematical formulas
 Use search arrays: they are used to obtain a value based on another instead of using a switch/case statement
 Make conditions always more likely to be true to take better advantage of the speculative execution of the processor
 Use bit-level operators when you can to replace certain operations, because these operators use fewer processor cycles
+
 [11/03, 12:02] Gautam: Explain XSRF with one good example
 Cross-site request forgery attacks (CSRF or XSRF for short) are used to send malicious requests from an authenticated user to a web application. The attacker can’t see the responses to the forged requests, so CSRF attacks focus on state changes, not theft of data. Successful CSRF attacks can have serious consequences
 When you are browsing a website, it is common for that website to request data from another website on your behalf. For example, in most cases, a video that is shown on a website is not typically stored on the website itself. The video appears to be on the website but is actually being embedded from a video streaming site such as YouTube. That’s the idea behind Content Delivery Networks (CDNs), which are used to deliver content faster. Many websites store scripts, images, and other bandwidth-hungry resources on CDNs, so during browsing, images and script files are downloaded from a CDN source rather than the website itself.
 
 While this improves the browsing experience, it might also be a source of a security problem if a website asks the web browser to retrieve data from another website without the user’s consent. If such requests are not handled correctly, an attacker can launch a cross-site request forgery attack
+
 [11/03, 12:04] Gautam: How to Prevent Cross-Site Request Forgery Attacks
 An attacker can launch a CSRF attack when he knows which parameters and value combination are being used in a form. Therefore, by adding an additional parameter with a value that is unknown to the attacker and can be validated by the server, you can prevent CSRF attacks. Below is a list of some of the methods you can use to block cross-site request forgery attacks.
 
@@ -174,29 +179,35 @@ Implement an Anti-CSRF Token
 An anti-CSRF token is a type of server-side CSRF protection. It is a random string that is only known to the user’s browser and the web application. The anti-CSRF token is usually stored inside a session variable. On a page, it is typically in a hidden field that is sent with the request.
 
 If the values of the session variable and the hidden form field match, the web application accepts the request. If they do not match, the request is dropped. In this case, the attacker does not know the exact value of the hidden form field that is needed for the request to be accepted, so he cannot launch a CSRF attack. In fact, due to same origin policy, the attacker can’t even read the response that contains the token.
+
 [11/03, 12:08] Gautam: Explain event propagation in JavaScript
 Event propagation is a mechanism that defines how events propagate or travel through the DOM tree to arrive at its target and what happens to it afterward.
 
 Let's understand this with the help of an example, suppose you have assigned a click event handler on a hyperlink (i.e. <a> element) which is nested inside a paragraph (i.e. <p> element). Now if you click on that link, the handler will be executed. But, instead of link, if you assign the click event handler to the paragraph containing the link, then even in this case, clicking the link will still trigger the handler. That's because events don't just affect the target element that generated the event—they travel up and down through the DOM tree to reach their target. This is known as event propagation
 
 In modern browser event propagation proceeds in two phases: capturing, and bubbling phase.
+
 [11/03, 12:10] Gautam: The Capturing Phase
 In the capturing phase, events propagate from the Window down through the DOM tree to the target node. For example, if the user clicks a hyperlink, that click event would pass through the <html> element, the <body> element, and the <p> element containing the link.
 
 Also if any ancestor (i.e. parent, grandparent, etc.) of the target element and the target itself has a specially registered capturing event listener for that type of event, those listeners are executed during this phase.
+
 [11/03, 12:10] Gautam: The Bubbling Phase
 In the bubbling phase, the exact opposite occurs. In this phase event propagates or bubbles back up the DOM tree, from the target element up to the Window, visiting all of the ancestors of the target element one by one. For example, if the user clicks a hyperlink, that click event would pass through the <p> element containing the link, the <body> element, the <html> element, and the document node.
 
 Also, if any ancestor of the target element and the target itself has event handlers assigned for that type of event, those handlers are executed during this phase.
+
 [11/03, 12:11] Gautam: Stopping the Event Propagation
 You can also stop event propagation in the middle if you want to prevent any ancestor element's event handlers from being notified about the event.
 
 For example, suppose you have nested elements and each element has onclick event handler that displays an alert dialog box. Normally, when you click on the inner element all handlers will be executed at once, since event bubble up to the DOM tree.
 To prevent this situation you can stop event from bubbling up the DOM tree using the event.stopPropagation() method. In the following example click event listener on the parent elements will not execute if you click on the child elements.
+
 [11/03, 12:15] Gautam: What are differences between $(document).ready and $(window).load?
 $(window).load is an event that fires when the DOM and all the content (everything) on the page is fully loaded like CSS, images and frames. One best example is if we want to get the actual image size or to get the details of anything we use it.
 
 $(document).ready() indicates that code in it need to be executed once the DOM got loaded and ready to be manipulated by script. It won't wait for the images to load for executing the jQuery script.
+
 [11/03, 12:21] Gautam: Write a program to multiply two numbers with out using * symbol
 function multiply(a, b){
   let answer = a
@@ -217,6 +228,7 @@ answer is now 12         // i is now 1
 answer is now 18         // i is now 2 which is means break loop as
                             i is no longer less than b - 1.
 then we return "answer" which would be 18.
+
 [11/03, 12:38] Gautam: difference between http1 and http2
 These are the high-level differences between HTTP1 and HTTP2:
 
@@ -231,6 +243,7 @@ HTTP/2 began as the SPDY protocol, developed primarily at Google with the intent
 From a technical point of view, one of the most significant features that distinguishes HTTP/1.1 and HTTP/2 is the binary framing layer, which can be thought of as a part of the application layer in the internet protocol stack. As opposed to HTTP/1.1, which keeps all requests and responses in plain text format, HTTP/2 uses the binary framing layer to encapsulate all messages in binary format, while still maintaining HTTP semantics, such as verbs, methods, and headers. An application level API would still create messages in the conventional HTTP formats, but the underlying layer would then convert these messages into binary. This ensures that web applications created before HTTP/2 can continue functioning as normal when interacting with the new protocol.
 
 The conversion of messages into binary allows HTTP/2 to try new approaches to data delivery not available in HTTP/1.1, a contrast that is at the root of the practical differences between the two protocols.
+
 [11/03, 12:44] Gautam: What is Service Worker:
 A service worker is a script that runs independently in the browser background. On the user side, it can intercept its network requests and decide what to load (fetch).
 Service workers mainly serve features like background sync, push notifications and they are commonly used for’offline first’ applications, giving the developers the opportunity to take complete control over the user experience.
@@ -378,12 +391,15 @@ Common use cases:
 Offline-optimized experience
 Sending Push Notifications
 Background sync
+
 [11/03, 12:45] Gautam: Service workers have been designed to be fully asynchronous, as a consequence, APIs such as synchronous XHR and localStorage can’t be used inside a service worker. But since it is working on a different thread it doesn’t block your application in any way.
 Service workers are terminated when not in use and restored when required. It acts as a programmable network proxy, allowing developers to handle how network requests from the web page is handled. So the developers can take appropriate action based on the availability of network.
+
 [11/03, 12:46] Gautam: Service Worker v/s Web Worker
 Both Service workers and Web workers are JavaScript workers with lots of similarities but there are a few difference too.
 Service workers are designed to handle network requests and assist in offline first development, Push Notifications and background syncs. Communication’s with the webpage must go through service workers PostMessage method.
 Web workers mimics the multi-threading model, allowing complex / data or processor intensive tasks to run in background. Ideal to keep your UI jank free when you have to deal with a lot of computations. Communication’s with the webpage must go through web workers PostMessage method.
+
 [11/03, 12:52] Gautam: What is a JavaScript closure?
 A JavaScript Closure is when an inner function has access to members of the outer function (lexical scope) even when executing outside the scope of the outer function.
 
@@ -471,6 +487,7 @@ for (let i = 1; i <= 5; i++) {
 * Closure enabling us to remember the variable i
 * The let keyword rebinds the value of i for each iteration
 */
+
 [11/03, 12:59] Gautam: What is the difference between HTTP and HTTPS
 
 HTTP is unsecured while HTTPS is secured.
@@ -479,6 +496,7 @@ HTTP operates at application layer, while HTTPS operates at transport layer.
 No SSL certificates are required for HTTP, with HTTPS it is required that you have an SSL certificate and it is signed by a CA.
 HTTP doesn't require domain validation, where as HTTPS requires at least domain validation and certain certificates even require legal document validation.
 No encryption in HTTP, with HTTPS the data is encrypted before sending.
+
 [11/03, 13:04] Gautam: Working of web
 The moment you enter this address in your browser and you hit ENTER, a lot of different things happen:
 
@@ -491,6 +509,7 @@ Step 1 - URL Gets Resolved
 The website code is obviously not stored on your machine and hence needs to be fetched from another computer where it is stored. This “other computer” is called a “server”. Because it serves some purpose, in our case, it serves the website.
 
 You enter “academind.com” (that is called “a domain”) but actually, the server which hosts the source code of a website, is identified via IP (= Internet Protocol) addresses. The browser sends a “request” (see step 2) to the server with the IP address you entered (indirectly - you of course entered “academind.com”).
+
 [11/03, 13:06] Gautam: How is the domain “academind.com” translated to its IP address?
 
 There’s a special type of server out there in the internet - not just one but many servers of that type. A so called “name server” or “DNS server” (where DNS = “Domain Name System”).
@@ -521,6 +540,7 @@ Step 4 - Page Is Displayed
 As mentioned, the browser goes through the HTML data returned by the server and builds a website based on that.
 
 Though it is important to know, that HTML does not include any instructions regarding what the site should look like (i.e. how it should be styled). It really only defines the structure and tells the browser which content is a heading, which content is an image, which content is a paragraph etc. This is especially important for accessibility - screen readers get all the useful information out of the HTML structure.
+
 [11/03, 13:13] Gautam: Webpack and it's working
 
 Webpack is a tool that lets you compile JavaScript modules, also known as module bundler.
@@ -550,6 +570,7 @@ Just add this script:
 and run
 
 npm run watch
+
 [11/03, 13:14] Gautam: Handling images
 Webpack allows us to use images in a very convenient way, using the file-loader loader.
 
@@ -584,90 +605,7 @@ module.exports = {
   devtool: 'inline-source-map',
   /*...*/
 }
-[11/03, 13:16] Gautam: Async/ await in es6
-es6 new functionalities
-Difference between for...of, for...in and simple for loop
-Prototype chaining in JS
-Event Loop and Message Queue in Node.js
-Diff. B/w let, var and const
-Diff. B/w bind, call and apply
-Diff B/w map, reduce and forEach
-JS Hoisting and Can functions be hoisted
-Local Storage, Session Storage & cookies and diff. B/w them
-Settimeout functions
-Inheritance and Prototypes; Prototypes Chain
-Classes and functions in JS
-Async Ajax Request
-Live(), bind and delegate methods
-Slice vs Splice
-Web Workers vs Service Workers
-Async & defer Differences
-How a page renders
-onLoad and ready functions
-Object Assign
-Object Create
-Object Writable and Emutable
-Check if variable is Array, Number, Object
-Regex
-Promises and Callbacks
-Block Level Elements vs Inline Elements
-New Features in HTML5 - https://www.w3schools.com/html/html5_intro.asp
-Box-shadow and position property css
-Transitions in css
-Animations in css
-Server Side Rendering
-Code Splitting in React
-Lazy and Suspense in React
-Arrow functions in JS
-Spread Operator in JS
-Destructuring in JS
-Debouncing and Throttling in JS
-Redux and its working of actions and reducers
-Currying in JS
-Arity in JS
-Difference Between PureComponent and Component in React
-Controlled and High Order Components(HOC) in React
-Type Coercion, and using typeof, instanceof, and Object.prototype.toString
-HTTP requests: GET and POST and their headers like Cache-Control, ETag, and Transfer-Encoding
-REST vs RPC
-Security: When to use CORS, JSONP, and iFrame policies
-Critical rendering path
-Service workers
-Image optimization
-Lazy loading images and video
-HTTP/2
-Preload, preconnect, and prefetch
-Minimize browser reflows
-Rendering performance
-Binding: Call, Apply, and Bind & Lexical This
-Execution Context: Scoping & Closures
-Prototypal inheritance
-Event Delegation and Bubbling
-When to use function declarations and expressions
-Composition and high order functions
-Handling asynchronous calls with callbacks, promises, await, and async
-Variable and function hoisting
-Currying
-Object prototypes, constructors and mixins
-Dunder Properties in JS
-How to create functions like map in javascript
-How to create functions where it accepts array in the beginning as well as a parameter.
-HTTP Get, Post, Put, Delete method and their Differences
-Bubbling and Capturing and its differences and Examples
-Event Loop & Call Stack & Event Queue
-Modules in Node.js and exporting, importing and requiring them
-Event Emitter and Event module
-Two-way binding with digest cycle
-Directives, Filters, Service, Factory functions
-Interceptors functions
-Passing Data b/w 2 controllers
-https://blog.pramp.com/how-to-succeed-in-a-frontend-interview-d748cb073823
-https://blog.sessionstack.com/how-javascript-works-memory-management-how-to-handle-4-common-memory-leaks-3f28b94cfbec
-https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf
-https://blog.sessionstack.com/how-javascript-works-inside-the-v8-engine-5-tips-on-how-to-write-optimized-code-ac089e62b12e
-https://medium.com/better-programming/12-useful-packages-every-node-js-developer-should-know-2746db760e
-https://medium.com/better-programming/10-best-practices-for-improving-your-css-84c69aac66e
-How does Browser identify JS?
+
 6 Primitive data types in js -
 1. undefined
 2. null
@@ -720,42 +658,7 @@ Write a program for Anagram:Eg: FOOL & OFOL are anagram because characters and t
 Write a program to find whether the given point lies inside or outside of the circle.
 Write a program to reverse a word in a sentence without using any inbuilt function: Eg:i/p:This is a boy.o/p:Siht si a yob.
 
-In the LLD Interviews, they will judge you on your knowledge of creating modular, flexible, maintainable and reusable software, by applying Object-oriented Design Principles and Design Patterns. These questions (like Design a Parking Lot, Design a Chess Game etc.) are about demonstrating that you understand how to create elegant, maintainable object-oriented code. These questions are (intentionally) unstructured and open-ended and they don't have a standard answer.
 
-How to Prepare for the LLD Interview
-Learn at least one Object Oriented Language ( C++ / Java / Python or C# )
-Study about the SOLID and other Object Oriented Principles
-Learn all the common Design Patterns and their applications
-Explore some open-source projects and try to understand the best practices
-Practice common LLD interview questions
-How to solve LLD problems in the Interview
-Clarify the problem by asking the relevant questions. Gather the complete requirement and start with the basic features.
-Define the Core Classes ( and Objects )
-Establish the relationships between the classes / objects by observing the interactions among the classes / objects.
-Try to fulfill all the requirements by defining the methods
-Apply Object Oriented Design Principles and Design Patterns to make the system maintainable and reusable.
-Write well structured clean code (if you are told to implement a function)
-Resources for LLD
-Books:
-
-Head first object-oriented analysis and design http://shop.oreilly.com/product/9780596008673.do
-Head first design patterns : http://shop.oreilly.com/product/9780596007126.do
-Clean Code: https://www.oreilly.com/library/view/clean-code-a/9780136083238/
-Clean Architecture : https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/
-Refactoring: Improving the Design of Existing Code
-Patterns of Enterprise Application Architecture
-Design Patterns: Elements of Reusable Object-Oriented Software: https://www.oreilly.com/library/view/design-patterns-elements/0201633612/
-Online Live Course:
-
-https://practice.geeksforgeeks.org/courses/design-patterns-live
-Other Links:
-
-https://refactoring.guru/design-patterns
-https://sourcemaking.com/design_patterns
-https://www.geeksforgeeks.org/software-design-patterns/
-https://github.com/prasadgujar/low-level-design-primer
-https://github.com/DovAmir/awesome-design-patterns#programming-language-design-patterns
-https://www.youtube.com/watch?v=OkC7HKtiZC0&list=PLGLfVvz_LVvQ5G-LdJ8RLqe-ndo7QITYc (for UML 2.0)
 [11/03, 13:19] Gautam: Async/ await in es6
 
 async function myFirstAsyncFunction() {
@@ -815,6 +718,7 @@ async function foo() {
   throw Error('bar');
 }
 …calling foo() returns a promise that rejects with Error('bar')
+
 [11/03, 13:21] Gautam: ES6 new feature
 ECMAScript 6, also known as ECMAScript 2015, is the latest version of the ECMAScript standard. ES6 is a significant update to the language, and the first update to the language since ES5 was standardized in 2009. Implementation of these features in major JavaScript engines is underway now.
 
@@ -843,6 +747,7 @@ math + number + string + array + object APIs
 binary and octal literals
 reflect api
 tail calls
+
 [11/03, 13:24] Gautam: Top 10 ES6 Features
 Here’s the list of the top 10 best ES6 features for a busy software engineer (in no particular order):
 
