@@ -2,7 +2,7 @@
 Frontend interview question with answer
 
 
-Program for anagram?
+# Program for anagram?
 
 function anagrams(stringA, stringB) {
         /*First, we remove any non-alphabet character using regex and convert
@@ -62,7 +62,7 @@ method to sort it and convert it back to a string. Then we compare both strings 
     }
 Array.sort uses merge sort so its time complexity is O(nlogn).
 
-Program for decimal to binary?
+# Program for decimal to binary?
 
 function convertToBinary(x) {
     let bin = 0;
@@ -100,7 +100,7 @@ The binary value is calculated by:
 bin = bin + rem * i;
 Here, rem is the modulus % value of the number when divided by 2 and i gives the place value of the binary number.
 
-[11/03, 11:49] Gautam: Program for summation of diagonal elements
+# Program for summation of diagonal elements
 function diagonalSums(matrix) {
  
     let mainSum = 0, secondarySum = 0;
@@ -113,8 +113,9 @@ function diagonalSums(matrix) {
  
 diagonalSums([[20, 40], [10, 60]]);
 
-[11/03, 11:51] 
-How do you improve the performance of your web application?
+
+# How do you improve the performance of your web application?
+
 1. Cache in the browser
 There are two options for doing this. The first is to use the JavaScript Cache API, which we can use by installing a service worker. The second is to use the HTTP protocol cache.
 
@@ -167,13 +168,15 @@ Use search arrays: they are used to obtain a value based on another instead of u
 Make conditions always more likely to be true to take better advantage of the speculative execution of the processor
 Use bit-level operators when you can to replace certain operations, because these operators use fewer processor cycles
 
-[11/03, 12:02] Gautam: Explain XSRF with one good example
+# Explain XSRF with one good example
+
 Cross-site request forgery attacks (CSRF or XSRF for short) are used to send malicious requests from an authenticated user to a web application. The attacker can’t see the responses to the forged requests, so CSRF attacks focus on state changes, not theft of data. Successful CSRF attacks can have serious consequences
 When you are browsing a website, it is common for that website to request data from another website on your behalf. For example, in most cases, a video that is shown on a website is not typically stored on the website itself. The video appears to be on the website but is actually being embedded from a video streaming site such as YouTube. That’s the idea behind Content Delivery Networks (CDNs), which are used to deliver content faster. Many websites store scripts, images, and other bandwidth-hungry resources on CDNs, so during browsing, images and script files are downloaded from a CDN source rather than the website itself.
 
 While this improves the browsing experience, it might also be a source of a security problem if a website asks the web browser to retrieve data from another website without the user’s consent. If such requests are not handled correctly, an attacker can launch a cross-site request forgery attack
 
-[11/03, 12:04] Gautam: How to Prevent Cross-Site Request Forgery Attacks
+# How to Prevent Cross-Site Request Forgery Attacks
+
 An attacker can launch a CSRF attack when he knows which parameters and value combination are being used in a form. Therefore, by adding an additional parameter with a value that is unknown to the attacker and can be validated by the server, you can prevent CSRF attacks. Below is a list of some of the methods you can use to block cross-site request forgery attacks.
 
 Implement an Anti-CSRF Token
@@ -181,35 +184,40 @@ An anti-CSRF token is a type of server-side CSRF protection. It is a random stri
 
 If the values of the session variable and the hidden form field match, the web application accepts the request. If they do not match, the request is dropped. In this case, the attacker does not know the exact value of the hidden form field that is needed for the request to be accepted, so he cannot launch a CSRF attack. In fact, due to same origin policy, the attacker can’t even read the response that contains the token.
 
-[11/03, 12:08] Gautam: Explain event propagation in JavaScript
+# Explain event propagation in JavaScript
+
 Event propagation is a mechanism that defines how events propagate or travel through the DOM tree to arrive at its target and what happens to it afterward.
 
 Let's understand this with the help of an example, suppose you have assigned a click event handler on a hyperlink (i.e. <a> element) which is nested inside a paragraph (i.e. <p> element). Now if you click on that link, the handler will be executed. But, instead of link, if you assign the click event handler to the paragraph containing the link, then even in this case, clicking the link will still trigger the handler. That's because events don't just affect the target element that generated the event—they travel up and down through the DOM tree to reach their target. This is known as event propagation
 
 In modern browser event propagation proceeds in two phases: capturing, and bubbling phase.
 
-[11/03, 12:10] Gautam: The Capturing Phase
+# The Capturing Phase
 In the capturing phase, events propagate from the Window down through the DOM tree to the target node. For example, if the user clicks a hyperlink, that click event would pass through the <html> element, the <body> element, and the <p> element containing the link.
 
 Also if any ancestor (i.e. parent, grandparent, etc.) of the target element and the target itself has a specially registered capturing event listener for that type of event, those listeners are executed during this phase.
 
-[11/03, 12:10] Gautam: The Bubbling Phase
+# The Bubbling Phase
+
 In the bubbling phase, the exact opposite occurs. In this phase event propagates or bubbles back up the DOM tree, from the target element up to the Window, visiting all of the ancestors of the target element one by one. For example, if the user clicks a hyperlink, that click event would pass through the <p> element containing the link, the <body> element, the <html> element, and the document node.
 
 Also, if any ancestor of the target element and the target itself has event handlers assigned for that type of event, those handlers are executed during this phase.
 
-[11/03, 12:11] Gautam: Stopping the Event Propagation
+# Stopping the Event Propagation
+
 You can also stop event propagation in the middle if you want to prevent any ancestor element's event handlers from being notified about the event.
 
 For example, suppose you have nested elements and each element has onclick event handler that displays an alert dialog box. Normally, when you click on the inner element all handlers will be executed at once, since event bubble up to the DOM tree.
 To prevent this situation you can stop event from bubbling up the DOM tree using the event.stopPropagation() method. In the following example click event listener on the parent elements will not execute if you click on the child elements.
 
-[11/03, 12:15] Gautam: What are differences between $(document).ready and $(window).load?
+#  What are differences between $(document).ready and $(window).load?
+
 $(window).load is an event that fires when the DOM and all the content (everything) on the page is fully loaded like CSS, images and frames. One best example is if we want to get the actual image size or to get the details of anything we use it.
 
 $(document).ready() indicates that code in it need to be executed once the DOM got loaded and ready to be manipulated by script. It won't wait for the images to load for executing the jQuery script.
 
-[11/03, 12:21] Gautam: Write a program to multiply two numbers with out using * symbol
+# Write a program to multiply two numbers with out using * symbol
+
 function multiply(a, b){
   let answer = a
   for(var i = 0; i < b - 1; i++){
@@ -218,7 +226,8 @@ function multiply(a, b){
   return answer
 }
 
-Breakdown:
+# Breakdown:
+
 We create a variable named “answer” and assign it the value of “a”. Then we create a for loop that will iterate until “i” is less than “b -1”. Why “b -1”? Because we already assigned “answer” to “a”. Every iteration we add “a” to “answer”. Once iteration is done we return “answer”.
 Ex:
 multiply(6, 3)           //our a is 6 and b is 3
@@ -230,7 +239,7 @@ answer is now 18         // i is now 2 which is means break loop as
                             i is no longer less than b - 1.
 then we return "answer" which would be 18.
 
-[11/03, 12:38] Gautam: difference between http1 and http2
+# difference between http1 and http2
 These are the high-level differences between HTTP1 and HTTP2:
 
 HTTP2 is binary, instead of textual
@@ -245,7 +254,7 @@ From a technical point of view, one of the most significant features that distin
 
 The conversion of messages into binary allows HTTP/2 to try new approaches to data delivery not available in HTTP/1.1, a contrast that is at the root of the practical differences between the two protocols.
 
-[11/03, 12:44] Gautam: What is Service Worker:
+# What is Service Worker:
 A service worker is a script that runs independently in the browser background. On the user side, it can intercept its network requests and decide what to load (fetch).
 Service workers mainly serve features like background sync, push notifications and they are commonly used for’offline first’ applications, giving the developers the opportunity to take complete control over the user experience.
 
@@ -343,7 +352,7 @@ self.addEventListener('activate', e => {
 }) 
 
 
-Fetching event:
+# Fetching event:
 Once the service worker is set up, it should start to interact and use the cached responses. When a particular user navigates through the web pages, the service worker begins to receive fetch events. The following example demonstrates a case when the worker receives a fetch event and search for a matching cache if there is one, it returns the cached file/value, otherwise, it returns the default response of the call to fetch
 
 var cacheName = 'geeks-cache-v1'; 
@@ -393,18 +402,18 @@ Offline-optimized experience
 Sending Push Notifications
 Background sync
 
-[11/03, 12:45] Gautam: Service workers have been designed to be fully asynchronous, as a consequence, APIs such as synchronous XHR and localStorage can’t be used inside a service worker. But since it is working on a different thread it doesn’t block your application in any way.
+# Service workers have been designed to be fully asynchronous, as a consequence, APIs such as synchronous XHR and localStorage can’t be used inside a service worker. But since it is working on a different thread it doesn’t block your application in any way.
 Service workers are terminated when not in use and restored when required. It acts as a programmable network proxy, allowing developers to handle how network requests from the web page is handled. So the developers can take appropriate action based on the availability of network.
 
-[11/03, 12:46] Gautam: Service Worker v/s Web Worker
+# Service Worker v/s Web Worker
 Both Service workers and Web workers are JavaScript workers with lots of similarities but there are a few difference too.
 Service workers are designed to handle network requests and assist in offline first development, Push Notifications and background syncs. Communication’s with the webpage must go through service workers PostMessage method.
 Web workers mimics the multi-threading model, allowing complex / data or processor intensive tasks to run in background. Ideal to keep your UI jank free when you have to deal with a lot of computations. Communication’s with the webpage must go through web workers PostMessage method.
 
-[11/03, 12:52] Gautam: What is a JavaScript closure?
+# What is a JavaScript closure?
 A JavaScript Closure is when an inner function has access to members of the outer function (lexical scope) even when executing outside the scope of the outer function.
 
-Lexical Scope
+# Lexical Scope
 JavaScript's Lexical Scope is determined during the compile phase. It sets the scope of a variable so that it may only be called/referenced from within the block of code in which it is defined.
 
 A function declared inside a surrounding function block has access to variables in the surrounding function's lexical scope.
@@ -470,6 +479,7 @@ for (var i = 1; i <= 5; i++) {
     }, i * 1000)
   })(i)
 }
+
 /**
 * Prints 1 thorugh 5 after each second
 * Closure enables us to remember the variable i
@@ -489,7 +499,7 @@ for (let i = 1; i <= 5; i++) {
 * The let keyword rebinds the value of i for each iteration
 */
 
-[11/03, 12:59] Gautam: What is the difference between HTTP and HTTPS
+# What is the difference between HTTP and HTTPS
 
 HTTP is unsecured while HTTPS is secured.
 HTTP sends data over port 80 while HTTPS uses port 443.
@@ -498,7 +508,7 @@ No SSL certificates are required for HTTP, with HTTPS it is required that you ha
 HTTP doesn't require domain validation, where as HTTPS requires at least domain validation and certain certificates even require legal document validation.
 No encryption in HTTP, with HTTPS the data is encrypted before sending.
 
-[11/03, 13:04] Gautam: Working of web
+# Working of web
 The moment you enter this address in your browser and you hit ENTER, a lot of different things happen:
 
 1.The URL gets resolved
@@ -511,7 +521,7 @@ The website code is obviously not stored on your machine and hence needs to be f
 
 You enter “academind.com” (that is called “a domain”) but actually, the server which hosts the source code of a website, is identified via IP (= Internet Protocol) addresses. The browser sends a “request” (see step 2) to the server with the IP address you entered (indirectly - you of course entered “academind.com”).
 
-[11/03, 13:06] Gautam: How is the domain “academind.com” translated to its IP address?
+# How is the domain “academind.com” translated to its IP address?
 
 There’s a special type of server out there in the internet - not just one but many servers of that type. A so called “name server” or “DNS server” (where DNS = “Domain Name System”).
 
@@ -542,7 +552,7 @@ As mentioned, the browser goes through the HTML data returned by the server and 
 
 Though it is important to know, that HTML does not include any instructions regarding what the site should look like (i.e. how it should be styled). It really only defines the structure and tells the browser which content is a heading, which content is an image, which content is a paragraph etc. This is especially important for accessibility - screen readers get all the useful information out of the HTML structure.
 
-[11/03, 13:13] Gautam: Webpack and it's working
+# Webpack and it's working
 
 Webpack is a tool that lets you compile JavaScript modules, also known as module bundler.
 
@@ -572,7 +582,7 @@ and run
 
 npm run watch
 
-[11/03, 13:14] Gautam: Handling images
+# Handling images
 Webpack allows us to use images in a very convenient way, using the file-loader loader.
 
 This simple configuration:
@@ -615,7 +625,8 @@ module.exports = {
 5. symbol
 6. Number
 https://www.codementor.io/@nihantanu/21-essential-javascript-tech-interview-practice-questions-answers-du107p62z
-JS objects Points -
+
+# JS objects Points -
 1. Every JS object has a prototype property, due to which inheritance is possible in js.
 2. Prototype property of an object consists of methods and properties of the object that other objects can inherit.
 3. The constructor prototype property is not prototype of the constructor itself, its prototype of all instances that are created through it.
@@ -630,37 +641,22 @@ JS objects Points -
 Two ways to setup a project -
 1. Module to Language - Login ———> JS,CSS
 2. Langauge to Module - JS ——> Login, CSS ———> Login
-Object data type in js
-Difference b/w client side rendering and server side rendering? Which one is benefinicial and why?
-In which scenerios would you choose client side rendering and server side rendering?
-How does Browser identify headers and cookies?
-Webpack vs gulp vs grunt
-React Hooks and why do we use it?
-Website optimization techniques
-Is there any difference b/w code conventions for web and mobile apps webview?
-Websockets(How to implement instagram feed in UI)
-React Lifecycle methods
-Alternative Sorting in nlogn
-Find the largest sum of contiguous subarray from a given array of integers
-Generate a Matrix in spiral order, for a given number n.
-K-reverse linked list - reverse a singly linked list for an integer k is given.
-Checking for Palindrome Strings by removing special Characters and Spaces -
-Solution :- var A = ‘string’;var B = A.toLowerCase().replace(/[^A-Za-z0-9]+/ig, ‘’);var C = B.split(‘’).reverse().join(‘’);return C
-Write a program to find the sum of diagonal matrices.
-Eg:- Input: [ 4 5 7, 8 3 2, 4 5 6 ] Output: 13, 14
-Write a program to print :
-*
-* *
-* * *
-* * * *
-* * * * *
-Write a program to print fibonacci series using recursion?
-Write a program for Anagram:Eg: FOOL & OFOL are anagram because characters and their count are same in both words.
-Write a program to find whether the given point lies inside or outside of the circle.
-Write a program to reverse a word in a sentence without using any inbuilt function: Eg:i/p:This is a boy.o/p:Siht si a yob.
 
 
-[11/03, 13:19] Gautam: Async/ await in es6
+# Checking for Palindrome Strings by removing special Characters and Spaces -
+
+Solution :- var A = ‘string’;
+var B = A.toLowerCase().replace(/[^A-Za-z0-9]+/ig, ‘’);
+var C = B.split(‘’).reverse().join(‘’);
+return C
+
+# Write a program to find the sum of diagonal matrices.
+
+Eg:- Input: [ 4 5 7, 8 3 2, 4 5 6 ] 
+Output: 13, 14
+
+
+# Async/ await in es6
 
 async function myFirstAsyncFunction() {
   try {
@@ -670,6 +666,7 @@ async function myFirstAsyncFunction() {
     // …
   }
 }
+
 If you use the async keyword before a function definition, you can then use await within the function. When you await a promise, the function is paused in a non-blocking way until the promise settles. If the promise fulfills, you get the value back. If the promise rejects, the rejected value is thrown.
 
 Example: Logging a fetch
@@ -720,12 +717,13 @@ async function foo() {
 }
 …calling foo() returns a promise that rejects with Error('bar')
 
-[11/03, 13:21] Gautam: ES6 new feature
+# ES6 new feature
+
 ECMAScript 6, also known as ECMAScript 2015, is the latest version of the ECMAScript standard. ES6 is a significant update to the language, and the first update to the language since ES5 was standardized in 2009. Implementation of these features in major JavaScript engines is underway now.
 
 See the ES6 standard for full specification of the ECMAScript 6 language.
 
-ES6 includes the following new features:
+# ES6 includes the following new features:
 
 arrows
 classes
@@ -749,7 +747,7 @@ binary and octal literals
 reflect api
 tail calls
 
-[11/03, 13:24] Gautam: Top 10 ES6 Features
+# Top 10 ES6 Features
 Here’s the list of the top 10 best ES6 features for a busy software engineer (in no particular order):
 
 Default Parameters in ES6
@@ -775,7 +773,7 @@ First, a bit of history because those who don’t know the history can’t make 
 2015: ES6/ECMAScript2015 comes out; it has mostly syntactic sugar, because people weren’t able to agree on anything more ground breaking (ES7?)
 Enough with history, let’s get to the business of coding.
 
-1. Default Parameters in ES6
+# 1. Default Parameters in ES6
 Remember we had to do these statements to define default parameters:
 
 var link = function (height, color, url) {
@@ -791,7 +789,7 @@ var link = function(height = 50, color = 'red', url = 'http://azat.co') {
 }
 By the way, this syntax is similar to Ruby!
 
-2. Template Literals in ES6
+# 2. Template Literals in ES6
 Template literals or interpolation in other languages is a way to output variables in the string. So in ES5 we had to break the string like this:
 
 var name = 'Your name is ' + first + ' ' + last + '.'
@@ -800,7 +798,7 @@ Luckily, in ES6 we can use a new syntax ${NAME} inside of the back-ticked string
 
 var name = `Your name is ${first} ${last}.`
 var url = `http://localhost:3000/api/messages/${id}`
-3. Multi-line Strings in ES6
+# 3. Multi-line Strings in ES6
 Another yummy syntactic sugar is multi-line string. In ES5, we had to use one of these approaches:
 
 var roadPoem = 'Then took the other, as just as fair,\n\t'
@@ -821,7 +819,7 @@ var roadPoem = `Then took the other, as just as fair,
 
 var fourAgreements = `You have the right to be you.
     You can only be you when you do your best.`
-4. Destructuring Assignment in ES6
+# 4. Destructuring Assignment in ES6
 Destructuring can be a harder concept to grasp, because there’s some magic going on… let’s say you have simple assignments where keys house and mouse are variables house and mouse:
 
 [Sidenote]
@@ -888,7 +886,7 @@ var accountServiceES5ObjectCreate = {
 }
 I know, accountServiceES5ObjectCreate and accountServiceES5 are NOT totally identical, because one object (accountServiceES5) will have the properties in the __proto__ object as shown below:
 
-Enhanced Object Literals in ES6
+# Enhanced Object Literals in ES6
 Enhanced Object Literals in ES6
 
 But for the sake of the example, we’ll consider them similar. So in ES6 object literal, there are shorthands for assignment getAccounts: getAccounts, becomes just getAccounts,. Also, we set the prototype right there in the __proto__`` property which makes sense (not‘proto’` though:
@@ -912,7 +910,7 @@ Enhanced Object Literals in ES6 II
 
 This is a great enhancement to good old object literals!
 
-6. Arrow Functions in ES6
+# 6. Arrow Functions in ES6
 This is probably one feature I waited the most. I love CoffeeScript for its fat arrows. Now we have them in ES6. The fat arrows are amazing because they would make your this behave properly, i.e., this will have the same value as in the context of the function—it won’t mutate. The mutation typically happens each time you create a closure.
 
 Using arrows functions in ES6 allows us to stop using that = this or self = this or _this = this or .bind(this). For example, this code in ES5 is ugly:
