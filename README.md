@@ -63,6 +63,7 @@ method to sort it and convert it back to a string. Then we compare both strings 
 Array.sort uses merge sort so its time complexity is O(nlogn).
 
 Program for decimal to binary?
+
 function convertToBinary(x) {
     let bin = 0;
     let rem, i = 1, step = 1;
