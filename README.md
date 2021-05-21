@@ -5,6 +5,7 @@ Frontend interview question with answer
 # Program for anagram?
 
          function anagrams(stringA, stringB) {
+         
         /*First, we remove any non-alphabet character using regex and convert
         convert the strings to lowercase. */
         
