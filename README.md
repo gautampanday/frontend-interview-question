@@ -718,8 +718,57 @@ Solution :-
 
 # Write a program to find the sum of diagonal matrices.
 
-Eg:- Input: [ 4 5 7, 8 3 2, 4 5 6 ] 
-Output: 13, 14
+         Input : 
+         4
+         1 2 3 4
+         4 3 2 1
+         7 8 9 6
+         6 5 4 3
+         Output :
+         Principal Diagonal: 16
+         Secondary Diagonal: 20
+
+         Input :
+         3
+         1 1 1
+         1 1 1
+         1 1 1
+         Output :
+         Principal Diagonal: 3
+         Secondary Diagonal: 3
+
+
+         <script>
+         // A simple Javascript program to find sum of diagonals
+
+         const MAX = 100;
+
+         void printDiagonalSums(mat, n)
+         {
+             let principal = 0, secondary = 0;
+             for (let i = 0; i < n; i++) {
+                 for (let j = 0; j < n; j++) {
+
+                     // Condition for principal diagonal
+                     if (i == j)
+                         principal += mat[i][j];
+
+                     // Condition for secondary diagonal
+                     if ((i + j) == (n - 1))
+                         secondary += mat[i][j];
+                 }
+             }
+
+             document.write("Principal Diagonal:" + principal + "<br>");
+             document.write("Secondary Diagonal:" + secondary + "<br>");
+         }
+
+         // Driver code
+             let a = [ [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ],
+                             [ 1, 2, 3, 4 ], [ 5, 6, 7, 8 ] ];
+             printDiagonalSums(a, 4);
+
+         </script>
 
 
 # Async/ await in es6
