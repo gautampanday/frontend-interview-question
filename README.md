@@ -3511,76 +3511,108 @@ Prerendering is very similar to prefetching in that it gathers resources that th
 
 <link rel="prerender" href="https://www.keycdn.com">
 The prerender hint can be used by the application to indicate the next likely HTML navigation target: the user agent will fetch and process the specified resource as an HTML response. To fetch other content-types with appropriate request headers, or if HTML preprocessing is not desired, the application can use the prefetch hint.
-[12:41, 12/03/2021] Gautam: rendering optimize
+
+# rendering optimize
+
 Optimizing your JavaScript
 JavaScript often triggers visual changes in the browser. All the more so when building an SPA.
 Here are a few tips on which parts of your JavaScript you can optimize to improve rendering:
 Avoid setTimeout or setInterval for visual updates. These will invoke the callback at some point in the frame, possible right at the end. What we want to do is trigger the visual change right at the start of the frame not to miss it.
+
 Move long-running JavaScript computations to Web Workers as we have previously discussed.
 Use micro-tasks to introduce DOM changes over several frames. This is in case the tasks need access to the DOM, which is not accessible by Web Workers. This basically means that you’d break up a big task into smaller ones and run them inside requestAnimationFrame , setTimeout, setInterval depending on the nature of the task.
+
 Optimize your CSS
+
 Modifying the DOM through adding and removing elements, changing attributes, etc. will make the browser recalculate element styles and, in many cases, the layout of the entire page or at least parts of it.
+
 To optimize the rendering, consider the following:
+
 Reduce the complexity of your selectors. Selector complexity can take more than 50% of the time needed to calculate the styles for an element, compared to the rest of the work which is constructing the style itself.
 Reduce the number of elements on which style calculation must happen. In essence, make style changes to a few elements directly rather than invalidating the page as a whole.
-Optimize the layout
+
+## Optimize the layout
+
 Layout re-calculations can be very heavy for the browser. Consider the following optimizations:
 Reduce the number of layouts whenever possible. When you change styles the browser checks to see if any of the changes require the layout to be re-calculated. Changes to properties such as width, height, left, top, and in general, properties related to geometry, require layout. So, avoid changing them as much as possible.
+
 Use flexbox over older layout models whenever possible. It works faster and can create a huge performance advantage for your app.
 Avoid forced synchronous layouts. The thing to keep in mind is that while JavaScript runs, all the old layout values from the previous frame are known and available for you to query. If you access box.offsetHeight it won’t be an issue. If you, however, change the styles of the box before it’s accessed (e.g. by dynamically adding some CSS class to the element), the browser will have to first apply the style change and then run the layout. This can be very time-consuming and resource-intensive, so avoid it whenever possible.
-Optimize the paint
+
+## Optimize the paint
 This often is the longest-running of all the tasks so it’s important to avoid it as much as possible. Here is what we can do:
+
 Changing any property other than transforms or opacity triggers a paint. Use it sparingly.
 If you trigger a layout, you will also trigger a paint, since changing the geometry results in a visual change of the element.
 Reduce paint areas through layer promotion and orchestration of animations.
-Rendering is a vital aspect of how SessionStack functions. SessionStack has to recreate as a video everything that happened to your users at the time they experienced an issue while browsing your web app. To do this, SessionStack leverages only the data that was collected by our library: user events, DOM changes, network requests, exceptions, debug messages, etc. Our player is highly optimized to properly render and make use of all the collected data in order to offer a pixel-perfect simulation of your users’ browser and everything that happened in it, both visually and technically.
-[12:42, 12/03/2021] Gautam: Optimizing the rendering performance
+Rendering is a vital aspect of how SessionStack functions. SessionStack has to recreate as a video everything that happened to your users at the time they experienced an issue while browsing your web app.
+To do this, SessionStack leverages only the data that was collected by our library: user events, DOM changes, network requests, exceptions, debug messages, etc. Our player is highly optimized to properly render and make use of all the collected data in order to offer a pixel-perfect simulation of your users’ browser and everything that happened in it, both visually and technically.
+
+# Optimizing the rendering performance
 If you’d like to optimize your app, there are five major areas that you need to focus on. These are the areas over which you have control:
 JavaScript — in previous posts we covered the topic of writing optimized code that doesn’t block the UI, is memory efficient, etc. When it comes to rendering, we need to think about the way your JavaScript code will interact with the DOM elements on the page. JavaScript can create lots of changes in the UI, especially in SPAs.
-Style calculations — this is the process of determining which CSS rule applies to which element based on matching selectors. Once the rules are defined, they are applied and the final styles for each element are calculated.
-Layout — once the browser knows which rules apply to an element, it can begin to calculate how much space the latter takes up and where it is located on the browser screen. The web’s layout model defines that one element can affect others. For example, the width of the <body> can affect the width of its children and so on. This all means that the layout process is computationally intensive. The drawing is done in multiple layers.
-Paint — this is where the actual pixels are being filled. The process includes drawing out text, colors, images, borders, shadows, etc. — every visual part of each element.
-Compositing — since the page parts were drawn into potentially multiple layers they need to be drawn onto the screen in the correct order so that the page renders properly. This is very important, especially for overlapping elements.
-[12:44, 12/03/2021] Gautam: What is lexical 'this'?
 
-As you probably know, when you define a function and use a variable inside of it, it checks if the variable has been defined in its scope. If it is, it uses it! If not, it checks the enclosing scope for that variable definition. It keeps checking enclosing scopes until it finds the variable or reaches global scope. Now, function definitions that are not arrow functions define this for you, implicitly. Thus, they will never check an enclosing scope when you try to use this in their scope (because they find it in their own scope!). Arrow functions do NOT define their own this, so they go to the enclosing scope and look for it just as they would with any variable you try to use in their scope.
-[12:47, 12/03/2021] Gautam: When to use function declarations and expressions
+## Style calculations — 
+this is the process of determining which CSS rule applies to which element based on matching selectors. Once the rules are defined, they are applied and the final styles for each element are calculated.
+
+## Layout — 
+once the browser knows which rules apply to an element, it can begin to calculate how much space the latter takes up and where it is located on the browser screen. The web’s layout model defines that one element can affect others. For example, the width of the <body> can affect the width of its children and so on. This all means that the layout process is computationally intensive. The drawing is done in multiple layers.
+         
+## Paint — 
+this is where the actual pixels are being filled. The process includes drawing out text, colors, images, borders, shadows, etc. — every visual part of each element.
+## Compositing — 
+since the page parts were drawn into potentially multiple layers they need to be drawn onto the screen in the correct order so that the page renders properly. This is very important, especially for overlapping elements.
+
+# What is lexical 'this'?
+
+As you probably know, when you define a function and use a variable inside of it, it checks if the variable has been defined in its scope. If it is, it uses it! If not, it checks the enclosing scope for that variable definition. 
+It keeps checking enclosing scopes until it finds the variable or reaches global scope. Now, function definitions that are not arrow functions define this for you, implicitly. 
+Thus, they will never check an enclosing scope when you try to use this in their scope (because they find it in their own scope!). Arrow functions do NOT define their own this, so they go to the enclosing scope and look for it just as they would with any variable you try to use in their scope.
+
+# When to use function declarations and expressions
 
 use function declarations when you want to create a function on the global scope and make it available throughout your code. Use function expressions to limit where the function is available, keep your global scope light, and maintain clean syntax.
+
 Function declarations are hoisted but function expressions are not.
-[12:50, 12/03/2021] Gautam: Higher-Order Functions
+
+# Higher-Order Functions
+
 Higher order functions are functions that operate on other functions, either by taking them as arguments or by returning them. In simple words, A Higher-Order function is a function that receives a function as an argument or returns the function as output.
 For example, Array.prototype.map, Array.prototype.filter and Array.prototype.reduce are some of the Higher-Order functions built into the language.
 
-Array.prototype.map
+# Array.prototype.map
 The map() method creates a new array by calling the callback function provided as an argument on every element in the input array. The map() method will take every returned value from the callback function and creates a new array using those values.
 
 Example 1#
-Let’s say we have an array of numbers and we want to create a new array which contains double of each value of the first array. Let’s see how we can solve the problem with and without Higher-Order Function.
-Without Higher-order function
-const arr1 = [1, 2, 3];
-const arr2 = [];
-for(let i = 0; i < arr1.length; i++) {
-  arr2.push(arr1[i] * 2);
-}
-// prints [ 2, 4, 6 ]
-console.log(arr2);
-With Higher-order function map
-const arr1 = [1, 2, 3];
-const arr2 = arr1.map(function(item) {
-  return item * 2;
-});
-console.log(arr2);
-We can make this even shorter using the arrow function syntax:
-const arr1 = [1, 2, 3];
-const arr2 = arr1.map(item => item * 2);
-console.log(arr2);
+         Let’s say we have an array of numbers and we want to create a new array which contains double of each value of the first array. Let’s see how we can solve the problem with and without Higher-Order Function.
+         Without Higher-order function
+         const arr1 = [1, 2, 3];
+         const arr2 = [];
+         for(let i = 0; i < arr1.length; i++) {
+           arr2.push(arr1[i] * 2);
+         }
+         // prints [ 2, 4, 6 ]
+         console.log(arr2);
+         With Higher-order function map
+         const arr1 = [1, 2, 3];
+         const arr2 = arr1.map(function(item) {
+           return item * 2;
+         });
+         console.log(arr2);
+         We can make this even shorter using the arrow function syntax:
+         const arr1 = [1, 2, 3];
+         const arr2 = arr1.map(item => item * 2);
+         console.log(arr2);
 
-Array.prototype.filter
+## Array.prototype.filter
+
 The filter() method creates a new array with all elements that pass the test provided by the callback function. The callback function passed to the filter() method accepts 3 arguments: element, index, and array.
 
-Array.prototype.reduce
-The reduce method executes the callback function on each member of the calling array which results in a single output value. The reduce method accepts two parameters: 1) The reducer function (callback), 2) and an optional initialValue.
+## Array.prototype.reduce
+
+The reduce method executes the callback function on each member of the calling array which results in a single output value. The reduce method accepts two parameters: 
+1) The reducer function (callback), 
+2) 2) and an optional initialValue.
 
 Creating Our own Higher-Order Function
 Up until this point, we saw various Higher-order functions built into the language. Now let’s create our own Higher-order function.
@@ -3601,9 +3633,11 @@ const lenArray = mapForEach(strArray, function(item) {
 });
 // prints [ 10, 6, 3, 4, 1 ]
 console.log(lenArray);
+
 In the above example, we created an Higher-order function mapForEach which accepts an array and a callback function fn. This function loops over the provided array and calls the callback function fn inside the newArray.push function call on each iteration.
 The callback function fn receives the current element of array and returns the length of that element, which is stored inside the newArray. After the for loop has finished, the newArray is returned and assigned to the lenArray.
-[12:54, 12/03/2021] Gautam: how to create our own map function.
+
+# how to create our own map function.
 
 Create an empty array mapArr.
 Loop through array elements.
@@ -3612,51 +3646,71 @@ Push the result of the mapFunc function to the mapArr array.
 Return the mapArr array after going through all the elements.
 Now let’s write our implementation of the map()
 
-// map takes an array and function as argumentfunction map(arr, mapFunc) {    const mapArr = []; // empty array        // loop though array    for(let i=0;i<arr.length;i++) {        const result = mapFunc(arr[i], i, arr);        mapArr.push(result);    }    return mapArr;}
+         // map takes an array and function as 
+         argumentfunction map(arr, mapFunc) {    
+         const mapArr = []; // empty array       
+         // loop though array   
+         for(let i=0;i<arr.length;i++) {        
+         const result = mapFunc(arr[i], i, arr);
+         mapArr.push(result);    
+         }    
+         return mapArr;
+         }
 Now if you call the new map() in the previous example code,
 
-const squareArr2 = map(arr, num => num ** 2);
-console.log(squareArr2); // prints [1, 4, 9, 16, 25]
-[12:58, 12/03/2021] Gautam: What is client-side rendering?
+         const squareArr2 = map(arr, num => num ** 2);
+         console.log(squareArr2); // prints [1, 4, 9, 16, 25]
+         
+# What is client-side rendering?
+
 Client-side rendering means that a website’s JavaScript is rendered in your browser, rather than on the website’s server. 
 
 According to Google’s Martin Splitt, “If you use a JavaScript framework, the default is client-side rendering. This means you send the bare-bones HTML over and then a piece of JavaScript, and the JavaScript fetches and assembles the content in the browser.” 
 
 
-What are the benefits of client-side rendering?
+# What are the benefits of client-side rendering?
+
 Because all the burden of rendering content is on the client (i.e. person or bot trying to view your page), client-side rendering is the cheaper option for the website owner because it reduces the load on their own servers. 
 
 It’s also the default state for JavaScript websites, making client-side rendering easier than server-side rendering for the website owner. 
 
-What are the risks of client-side rendering?
+# What are the risks of client-side rendering?
+
 Client-side rendering has two main downsides. 
 
 For one, client-side rendering can increase the likelihood of a poor user experience. JavaScript can add seconds of load time to a page, and if that burden is fully on the client (website visitor), then they could get frustrated and leave your site.
 
 he second big downside of client-side rendering is its effect on search engine bots. For example, Googlebot has something called a second wave of indexing. In this process, they crawl and index the HTML of a page first, then come back to render the JavaScript when resources become available. This two-phased approach means that sometimes, JavaScript content might be missed, and not included in Google’s index
 
-What is server-side rendering?
+# What is server-side rendering?
+
 Server-side rendering means that a website’s JavaScript is rendered on the website’s server. To use the furniture example again, this would be like ordering furniture that arrives at your house fully assembled.  
 
-What are the benefits of server-side rendering?
+# What are the benefits of server-side rendering?
+
 Because JavaScript is rendered on the website’s server, both search engine bots and humans get a faster page experience. This not only means a better UX (which is also part of Google’s ranking algorithm), but it also eliminates speed-related crawl budget issues.
 
 Sending fully-rendered pages to search engine bots also means that you’re not risking the “partial indexing” that can happen with client-side rendered content. When Google and other search engine bots try to access your page, instead of having to wait for rendering resources to become available before seeing your full page, they’ll get the fully-rendered page right from the get-go. 
 
-What are the risks of server-side rendering?
+# What are the risks of server-side rendering?
+
 Server-side rendering can be expensive and resource-intensive. It can be expensive because the full burden of rendering your content for bots and human website visitors is on your servers. It can be resource-intensive to implement, since it’s not the default for JavaScript websites and will require work from your engineering team to execute. 
 
 Server-side rendering also tends not to work with third-party JavaScript. So, if you use services like Bazaarvoice to pull in reviews on your website, they won’t be rendered with server-side rendering.
-[12:59, 12/03/2021] Gautam: Which is better for SEO, client-side or server-side rendering?
+
+# Which is better for SEO, client-side or server-side rendering?
 Between the two options, server-side rendering is better for SEO than client-side rendering. This is because server-side rendering can speed up page load times, which not only improves the user experience, but can help your site rank better in Google search results. 
 
 Server-side rendering is also better for SEO because it removes the burden of rendering JavaScript off of search engine bots, solving speed-related crawl budget issues and partial indexing.
-[13:01, 12/03/2021] Gautam: HTTP cookies
+
+# HTTP cookies
+
 An HTTP cookie (web cookie, browser cookie) is a small piece of data that a server sends to the user's web browser. The browser may store it and send it back with later requests to the same server. Typically, it's used to tell if two requests came from the same browser — keeping a user logged-in, for example. It remembers stateful information for the stateless HTTP protocol.
 
 Cookies are mainly used for three purposes:
 
-Session management
+# Session management
+
 Logins, shopping carts, game scores, or anything else the server should remember
 Personalization
 User preferences, themes, and other settings
@@ -3664,7 +3718,7 @@ Tracking
 Recording and analyzing user behavior
 Cookies were once used for general client-side storage. While this was legitimate when they were the only way to store data on the client, it is now recommended to use modern storage APIs. Cookies are sent with every request, so they can worsen performance (especially for mobile data connections). Modern APIs for client storage are the Web Storage API (localStorage and sessionStorage) and IndexedDB.
 
-Creating cookies
+# Creating cookies
 After receiving an HTTP request, a server can send one or more Set-Cookie headers with the response. The cookie is usually stored by the browser, and then the cookie is sent with requests made to the same server inside a Cookie HTTP header. An expiration date or duration can be specified, after which the cookie is no longer sent. Additional restrictions to a specific domain and path can be set, limiting where the cookie is sent. For details about the header attributes mentioned below, refer to the Set-Cookie reference article.
 
 The Set-Cookie and Cookie headers
@@ -3672,16 +3726,21 @@ The Set-Cookie HTTP response header sends cookies from the server to the user ag
 
 Set-Cookie: <cookie-name>=<cookie-value>
 This shows the server sending headers to tell the client to store a pair of cookies
-[13:03, 12/03/2021] Gautam: what is mobile first approach
+         
+# what is mobile first approach
+
 Mobile First Design/Development refers to the practice of designing for mobile, well, first. Essentially, the aim of mobile first is to switch the workflow from tackling desktop designs first and addressing the mobile design head on, working towards the desktop version as the project evolves.
 
 With Mobile First, developers have the flexibility to scale up rather than scale down. For example, when you start designing for a desktop platform, there is a lot more real estate to take advantage of. The core design elements may be incredible on a desktop platform, providing a really great user experience. However, when this design needs to be adapted for mobile, you realize that none of the technology that makes the desktop user experience so great can scale down well to mobile devices. Which then leads to a sub-par mobile experience in comparison to the desktop version, and for some consumers it may feel like more of an afterthought than an actual finished product.
 
 Scaling up designs on the other hand, presents a lot more freedom in the way you’re able to adapt your designs. With a well-functioning mobile product, you’ve already prioritized features and capabilities and identified the essential elements of your platform. Progressively enhancing the mobile platform to fit the requirements for desktop becomes a series of decisions on how to add rather than cut elements of your platform, which gives you another opportunity to be creative about how to engage users.
 
-Why Does Mobile Matter?
+## Why Does Mobile Matter?
+
 Whether it’s browsing the internet on the train in the morning, checking your emails while waiting for an appointment, or listening to music at the gym, cell phones are deeply embedded in our daily routines. Each speck of downtime is one we can use to update ourselves with our network and the news, or even order that one thing from Amazon that we keep forgetting to buy. It’s no surprise that our mobile devices take up almost 5 hours of our day, mainly attributed to application use. Mobile application usage grew 6% last year, with interesting shifts in how people are using the time spent on their phones.
-[14:01, 12/03/2021] Gautam: gulp vs grunt vs webpack
+
+# gulp vs grunt vs webpack
+
 Grunt and Gulp are task runners, while Webpack is a module bundler. Task runners are basically used to automate tasks in a development process. Some of these tasks include compressing JS files, compiling Sass files, watching out for file changes, minifying files and auto-prefixing
 
 Gulp and Grunt offer features like code minification, CSS preprocessing, unit testing and a list of others.
@@ -3693,15 +3752,17 @@ For Gulp and Grunt, there is a high dependence on the plugin author to maintain 
 Gulp uses plugins that each perform a single task as opposed to Grunt where one plugin can perform multiple tasks.
 
 Webpack can be extended even beyond its core functionality with the aid of plugins and loaders, the only issue being the complications that may arise while configuring it.
-[12:22, 13/03/2021] Gautam: display none and visibility hidden difference
+
+# display none and visibility hidden difference
+
 display:none removes the element from the normal flow of the page, allowing other elements to fill in.
 
 visibility:hidden leaves the element in the normal flow of the page such that is still occupies space.
-[12:37, 13/03/2021] Gautam: if we use id and class on same div then add color to both id and class then which color get reflected
+ if we use id and class on same div then add color to both id and class then which color get reflected
 Id color get reflected
-[12:37, 13/03/2021] Gautam: doesn't matter of order of css line
-[12:38, 13/03/2021] Gautam: If more than one rule applies to an element and specifies the same property, then CSS gives priority to the rule that has the more specific selector. An ID selector is more specific than a class selector, which in turn is more specific than a tag selector.
-[12:41, 13/03/2021] Gautam: if u want to work css class then what u will do 
+ doesn't matter of order of css line
+ If more than one rule applies to an element and specifies the same property, then CSS gives priority to the rule that has the more specific selector. An ID selector is more specific than a class selector, which in turn is more specific than a tag selector.
+ if u want to work css class then what u will do 
 Ans => #color {
   color: white;
 }
