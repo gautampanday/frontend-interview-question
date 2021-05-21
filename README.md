@@ -47,14 +47,14 @@ The runtime complexity of a for loop is linear i.e O(n). In this case, there are
 This is a shorter and neater way of checking if two strings are anagrams.
 In this case, we convert the string to an array, use the Array.sort()
 method to sort it and convert it back to a string. Then we compare both strings and check if they are the same.
-    function anagrams(stringA, stringB) {
-        /*First, we remove any non-alphabet character using regex and convert       
-        convert the strings to lowercase. */
-        stringA = stringA.replace(/[^\w]/g, '').toLowerCase()
-        stringB = stringB.replace(/[^\w]/g, '').toLowerCase()
+             function anagrams(stringA, stringB) {
+                 /*First, we remove any non-alphabet character using regex and convert       
+                 convert the strings to lowercase. */
+                 stringA = stringA.replace(/[^\w]/g, '').toLowerCase()
+                 stringB = stringB.replace(/[^\w]/g, '').toLowerCase()
 
-        return sortString(stringA) === sortString(stringB)
-    }
+                  return sortString(stringA) === sortString(stringB)
+            }
 
     /*This function sorts the strings*/ 
     function sortString(string) {
