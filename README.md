@@ -30,6 +30,7 @@ Frontend interview question with answer
         return true
     }
 
+
     function getCharMap(string) {
         // We define an empty object that will hold the key - value pairs.
         let charMap = {}
@@ -2599,28 +2600,63 @@ So Let’s take a quick look that how to use above config and how it works:
          // Object {a: "some value"}
          
 # verticle align middle of div
-<html style="
+
+## First approch: 
+
+         <html style="
+             height: 100%;
+         "><head></head><body style="
+            height: 100%;
+            width: 100%;
+         ">
+         <div style="
+             width: 100%;
+             height: 100%;
+             display: table;
+         ">
+             <div style="
+             display: table-cell;
+             vertical-align: middle;
+
+             "><div style="
+             height: 200px;
+             width: 200px;
+             border: 1px solid;
+             margin: 0 auto;
+         "></div></div>
+         </div></body></html>
+
+## Step-2 
+
+         <div class="container">
+             <span>vertically/horizontally centered!</span>
+         </div>
+
+         <div class="container">
+                  <span>I'm vertically/horizontally centered!</span>
+          </div>
+          
+          .container {
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             -moz-transform: translateX(-50%) translateY(-50%);
+             -webkit-transform: translateX(-50%) translateY(-50%);
+             transform: translateX(-50%) translateY(-50%);
+         }
+
+## Step-3 
+
+html, body, .container {
     height: 100%;
-"><head></head><body style="
-   height: 100%;
-   width: 100%;
-">
-<div style="
-    width: 100%;
-    height: 100%;
-    display: table;
-">
-    <div style="
-    display: table-cell;
-    vertical-align: middle;
-   
-    "><div style="
-    height: 200px;
-    width: 200px;
-    border: 1px solid;
-    margin: 0 auto;
-"></div></div>
-</div></body></html>
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+         
 
 # css if there is multiple <p> tag and i want to add third <p> element to color red
          
@@ -3405,7 +3441,7 @@ The public response directive indicates that a resource can be cached by any cac
 Cache-Control: Private
 The private response directive indicates that a resource is user specific—it can still be cached, but only on a client device. For example, a web page response marked as private can be cached by a desktop browser, but not a content delivery network (CDN).
 
-Additional HTTP Cache Headers
+## Additional HTTP Cache Headers
 In addition to cache-control, notable HTTP cache headers include:
 
 Expires – This header specifies a fixed date/time for the expiration of a cached resource. For example, Expires: Sat, 13 May 2017 07:00:00 GMT signals that the cached resource expires on May 13, 2017 at 7:00 am GMT. The expires header is ignored when a cache-control header containing a max-age directive is present.
@@ -3516,11 +3552,12 @@ eager: instructs the browser to load the specified content right away
 auto: leaves the option to lazy load or not to lazy load up to the browser.
 This method has no rivals: it has zero overhead, it’s clean and simple. However, although at the time of writing most major browsers have good support for the loading attribute, not all browsers are on board yet.
 
-Why Lazy Load at All?
-Performance Gains
+# Why Lazy Load at All?
+
+## Performance Gains
 The obvious benefit is that we get smaller web pages that load faster. Lazy loading reduces the number of images that need to be loaded on a page up front. Fewer image requests mean fewer bytes to download. And fewer bytes to download means the page renders faster than if those bytes and requests were being made.
 
-Cost reduction
+## Cost reduction
 The second benefit is for you as a website administrator. Cloud hosting services, like Content Delivery Networks (CDNs) or web servers or storages, deliver images (or any asset for that matter) at a cost based on the number of bytes transferred. A lazy loaded image may never get loaded if the user never reaches it. Thus, you may reduce the total bytes delivered on the page and ultimately save yourself a few pennies in the process. This is especially true for users that instantly bounce off a page or interact only with the top portion of the content.
 
 Method 1: Trigger the image load using Javascript events
@@ -3534,9 +3571,9 @@ Note that we will ask JavaScript to select images that contain a lazy class. Onc
 
 Method 2: Trigger the image load using the Intersection Observer API
 The Intersection Observer API is relatively new. It makes it simple to detect when an element enters the viewport and take an action when it does. In the previous method, we had to bind events, keep performance in mind and implement a way to calculate if the element was in the viewport or not. The Intersection Observer API removes all that overhead by avoiding the math and delivering great performance out of the box.
-[12:37, 12/03/2021] Gautam: What is Preload, Prefetch, and Preconnect?
 
-preload#
+# What is Preload, Prefetch, and Preconnect?
+
 preload is a new web standard that offers more control on how particular resources are fetched for current navigation. This is the updated version of subresource prefetching which was deprecated in January 2016. This directive can be defined within a <link> element for example as <link rel="preload">. Generally it is best to preload your most important resources such as images, CSS, JavaScript, and font files. This is not to be confused with browser preloading in which only resources declared in HTML are preloaded. The preload directive actually overcomes this limitation and allows resources which are initiated via CSS and JavaScript to be preloaded and define when each resource should be applied.
 
 Here is a very basic example of preloading an image.
@@ -3808,6 +3845,7 @@ Webpack can be extended even beyond its core functionality with the aid of plugi
 display:none removes the element from the normal flow of the page, allowing other elements to fill in.
 
 visibility:hidden leaves the element in the normal flow of the page such that is still occupies space.
+
  if we use id and class on same div then add color to both id and class then which color get reflected
 Id color get reflected
  doesn't matter of order of css line
